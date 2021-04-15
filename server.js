@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 
 const express = require('express');
@@ -26,6 +27,11 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+/* Routes */
+app.use('/', (req, res) => {
+    res.send('Brewbook Backend Working');
+});
 
 /*  LISTEN  */
 
