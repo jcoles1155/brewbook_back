@@ -13,8 +13,15 @@ const PORT = process.env.PORT || 5000;
 /*  APP SETUP  */
 const app = express();
 
+// connect to the database with Mongoose
+require('./config/database');
+
 /*  INTERNAL MODULES  */
 const logger = require('morgan');
+
+/* Require Routes */
+const indexRouter = require('./routes/index');
+const beerRecipesRouter = require('./routes/beerRecipes')
 
 /* MIDDLEWARE */
 app.use(logger('dev'));
@@ -28,10 +35,12 @@ app.use(session({
     saveUninitialized: true
 }));
 
-/* Routes */
+/* Mount Routes */
 app.use('/', (req, res) => {
     res.send('Brewbook Backend Working');
 });
+app.use('/', indexRouter);
+app.use('/recipes', beerRecipesRouter);
 
 /*  LISTEN  */
 
